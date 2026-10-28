@@ -1,0 +1,25 @@
+{
+  "updated": "2026-10-28",
+  "categories": ["シューズ", "GPSウォッチ", "イヤホン", "ポーチ・ベスト", "ウェア・小物", "補給食", "ケア用品"],
+  "products": [
+    {"id": "p001", "added": "2026-10-28", "category": "シューズ", "name": "ミズノ マキシマイザー27", "comment": "クッション性と幅広設計で、走り始めたばかりの人の1足目に人気。普段履きにも使いやすいモデル。", "query": "ミズノ マキシマイザー27"},
+    {"id": "p002", "added": "2026-10-28", "category": "シューズ", "name": "adidas コアランナー 5", "comment": "軽くて手頃な価格のエントリーモデル。毎日のジョグ用に選ばれています。", "query": "adidas コアランナー 5"},
+    {"id": "p003", "added": "2026-10-28", "category": "シューズ", "name": "PUMA スペースランナー", "comment": "初心者向けの定番。まずは気軽に走り出したい人に。", "query": "PUMA スペースランナー"},
+    {"id": "p004", "added": "2026-10-28", "category": "シューズ", "name": "アシックス ノヴァブラスト", "comment": "弾むような反発が気持ちいい人気シリーズ。ジョグからペース走まで1足で幅広く使えます。", "query": "アシックス ノヴァブラスト"},
+    {"id": "p005", "added": "2026-10-28", "category": "GPSウォッチ", "name": "Garmin Forerunner 970", "comment": "フルマラソンやトライアスロンまで本格的に取り組むランナー向けの上位モデル。", "query": "Garmin Forerunner 970"},
+    {"id": "p006", "added": "2026-10-28", "category": "GPSウォッチ", "name": "Garmin Forerunner 265", "comment": "機能と価格のバランスが良く、初心者から上級者まで長く使えるコスパ枠。", "query": "Garmin Forerunner 265"},
+    {"id": "p007", "added": "2026-10-28", "category": "GPSウォッチ", "name": "Garmin vivoactive 6", "comment": "ランニングに加えて日常の健康管理もしたい人に。音楽を入れて走れます。", "query": "Garmin vivoactive 6"},
+    {"id": "p008", "added": "2026-10-28", "category": "イヤホン", "name": "Shokz OpenRun Pro 2", "comment": "耳をふさがない骨伝導タイプの上位モデル。周りの音が聞こえるので屋外ランでも安心。", "query": "Shokz OpenRun Pro 2"},
+    {"id": "p009", "added": "2026-10-28", "category": "イヤホン", "name": "Shokz OpenRun", "comment": "骨伝導イヤホンの定番モデル。初めての1台に。", "query": "Shokz OpenRun"},
+    {"id": "p010", "added": "2026-10-28", "category": "ポーチ・ベスト", "name": "SALOMON PULSE BELT", "comment": "スマホやジェルを入れても揺れにくいベルト型ポーチ。レースでも使いやすい。", "query": "SALOMON PULSE BELT"},
+    {"id": "p011", "added": "2026-10-28", "category": "ポーチ・ベスト", "name": "NATHAN ジップスター", "comment": "薄くて軽いウエストポーチ。鍵とスマホだけ持って走りたい人に。", "query": "NATHAN ジップスター"},
+    {"id": "p012", "added": "2026-10-28", "category": "ポーチ・ベスト", "name": "On Ultra Belt 2L", "comment": "容量に余裕のあるベルト。ロング走で補給食や小さなボトルを持ちたいときに。", "query": "On Ultra Belt"},
+    {"id": "p013", "added": "2026-10-28", "category": "ポーチ・ベスト", "name": "パーゴワークス ラッシュ7R", "comment": "ランニング用の小型ベスト。通勤ランやロング走に。", "query": "パーゴワークス ラッシュ7R"},
+    {"id": "p014", "added": "2026-10-28", "category": "ウェア・小物", "name": "On Lightweight Cap", "comment": "軽くて蒸れにくいランニングキャップ。日差しの強い日に。", "query": "On Lightweight Cap"},
+    {"id": "p015", "added": "2026-10-28", "category": "ウェア・小物", "name": "アシックス ランニングキャップ", "comment": "手に取りやすい価格の定番キャップ。", "query": "アシックス ランニングキャップ"},
+    {"id": "p016", "added": "2026-10-28", "category": "補給食", "name": "メダリスト エナジージェル", "comment": "持久系スポーツ向けのエネルギージェル。フルマラソンやロング走の補給に。", "query": "メダリスト エナジージェル"},
+    {"id": "p017", "added": "2026-10-28", "category": "補給食", "name": "Mag-on エナジージェル", "comment": "マグネシウム入りのエネルギージェル。レース中盤以降の補給に人気。", "query": "Mag-on エナジージェル"},
+    {"id": "p018", "added": "2026-10-28", "category": "補給食", "name": "塩熱サプリ", "comment": "汗で失われる塩分を手軽に補えるタブレット。夏場のランやレースに。", "query": "塩熱サプリ"},
+    {"id": "p019", "added": "2026-10-28", "category": "ケア用品", "name": "フォームローラー（ランナー向け）", "comment": "走った後のふくらはぎや太もものセルフケアに。", "query": "フォームローラー ランニング"}
+  ]
+}

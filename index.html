@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>おすすめランニングギア｜名古屋しゃちほこトライアル</title>
+<meta name="description" content="名古屋しゃちほこトライアル事務局が選ぶ、いま人気のランニンググッズ。シューズ・GPSウォッチ・補給食などをカテゴリー別に紹介します。">
+<style>
+  :root{
+    --bg:#f7f5f0; --card:#ffffff; --ink:#1d1d1b; --sub:#6b6862; --line:#e4e0d7;
+    --accent:#c8501e; --accent-soft:#fbe9e1; --gold:#b8892b; --amz:#ffd814; --amz-ink:#0f1111;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",Meiryo,sans-serif;line-height:1.6}
+  .wrap{max-width:960px;margin:0 auto;padding:16px}
+  header{padding:8px 0 4px}
+  .pr{display:inline-block;font-size:12px;font-weight:700;color:#fff;background:var(--sub);
+    border-radius:4px;padding:1px 8px;margin-bottom:6px}
+  h1{font-size:22px;margin:0 0 4px;letter-spacing:.02em}
+  .lead{margin:0;color:var(--sub);font-size:14px}
+  .meta{font-size:12px;color:var(--sub);margin-top:6px}
+  .controls{position:sticky;top:0;z-index:5;background:var(--bg);padding:12px 0 10px;border-bottom:1px solid var(--line)}
+  .row{display:flex;gap:8px;align-items:center}
+  .search{flex:1;min-width:0;font-size:16px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff}
+  .sort{font-size:14px;padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff}
+  .chips{display:flex;gap:6px;overflow-x:auto;margin-top:10px;padding-bottom:2px;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex:none;font-size:14px;padding:6px 14px;border-radius:999px;border:1px solid var(--line);
+    background:#fff;color:var(--ink);cursor:pointer}
+  .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+  .count{font-size:13px;color:var(--sub);margin:12px 0 8px}
+  .grid{display:grid;grid-template-columns:1fr;gap:12px}
+  @media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+  @media(min-width:900px){.grid{grid-template-columns:1fr 1fr 1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px}
+  .tags{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .cat{font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:6px;padding:2px 8px}
+  .new{font-size:11px;font-weight:700;color:#fff;background:var(--gold);border-radius:6px;padding:2px 6px}
+  .date{font-size:12px;color:var(--sub);margin-left:auto}
+  .name{font-size:17px;font-weight:700;margin:0}
+  .comment{font-size:14px;margin:0;color:#3a3833;flex:1}
+  .btn{display:block;text-align:center;text-decoration:none;font-weight:700;font-size:15px;
+    background:var(--amz);color:var(--amz-ink);border-radius:999px;padding:10px}
+  .btn:active{transform:translateY(1px)}
+  .empty{text-align:center;color:var(--sub);padding:40px 0}
+  footer{font-size:12px;color:var(--sub);margin-top:24px;padding-top:12px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="pr">PR・広告</span>
+    <h1>おすすめランニングギア</h1>
+    <p class="lead">名古屋しゃちほこトライアル事務局が、いま人気のランニンググッズを週2回ピックアップしています。</p>
+    <div class="meta" id="updated"></div>
+  </header>
+
+  <div class="controls">
+    <div class="row">
+      <input id="q" class="search" type="search" placeholder="商品名やキーワードで検索" aria-label="キーワード検索">
+      <select id="sort" class="sort" aria-label="並び順">
+        <option value="new">新着順</option>
+        <option value="old">古い順</option>
+      </select>
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="カテゴリー"></div>
+  </div>
+
+  <div class="count" id="count"></div>
+  <div class="grid" id="grid"></div>
+
+  <footer>
+    当サイトはAmazonアソシエイト・プログラムに参加しています。Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。<br>
+    価格・在庫・仕様はリンク先のAmazonでご確認ください。紹介内容は掲載時点の情報です。
+  </footer>
+</div>
+
+<script>
+const TAG = "rungenic-22";
+let DATA = {categories: [], products: []};
+let state = {cat: "すべて", q: "", sort: "new"};
+
+function link(p){
+  if (p.asin) return "https://www.amazon.co.jp/dp/" + encodeURIComponent(p.asin) + "?tag=" + TAG;
+  return "https://www.amazon.co.jp/s?k=" + encodeURIComponent(p.query || p.name) + "&tag=" + TAG;
+}
+function esc(s){return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function isNew(d){
+  const days = (Date.now() - new Date(d + "T00:00:00+09:00").getTime()) / 86400000;
+  return days <= 7;
+}
+function fmt(d){const [y,m,dd]=d.split("-");return `${y}.${m}.${dd}`}
+
+function renderChips(){
+  const cats = ["すべて", ...DATA.categories];
+  document.getElementById("chips").innerHTML = cats.map(c =>
+    `<button class="chip" aria-pressed="${c===state.cat}" data-cat="${esc(c)}">${esc(c)}</button>`).join("");
+}
+function render(){
+  const q = state.q.trim().toLowerCase();
+  let list = DATA.products.filter(p =>
+    (state.cat === "すべて" || p.category === state.cat) &&
+    (!q || (p.name + " " + p.comment + " " + p.category).toLowerCase().includes(q)));
+  list.sort((a,b) => {
+    const r = a.added < b.added ? -1 : a.added > b.added ? 1 : (a.id < b.id ? -1 : 1);
+    return state.sort === "new" ? -r : r;
+  });
+  document.getElementById("count").textContent = `${list.length}件の商品`;
+  const grid = document.getElementById("grid");
+  if (!list.length){ grid.innerHTML = `<div class="empty">該当する商品がありません</div>`; return; }
+  grid.innerHTML = list.map(p => `
+    <article class="card">
+      <div class="tags">
+        <span class="cat">${esc(p.category)}</span>
+        ${isNew(p.added) ? '<span class="new">NEW</span>' : ''}
+        <span class="date">${fmt(p.added)} 掲載</span>
+      </div>
+      <h2 class="name">${esc(p.name)}</h2>
+      <p class="comment">${esc(p.comment)}</p>
+      <a class="btn" href="${link(p)}" target="_blank" rel="noopener sponsored">Amazonで見る</a>
+    </article>`).join("");
+}
+
+document.getElementById("chips").addEventListener("click", e => {
+  const b = e.target.closest(".chip"); if (!b) return;
+  state.cat = b.dataset.cat; renderChips(); render();
+});
+document.getElementById("q").addEventListener("input", e => { state.q = e.target.value; render(); });
+document.getElementById("sort").addEventListener("change", e => { state.sort = e.target.value; render(); });
+
+function start(d){
+  DATA = d;
+  document.getElementById("updated").textContent = "最終更新：" + fmt(d.updated);
+  renderChips(); render();
+}
+if (window.PRODUCTS_DATA) start(window.PRODUCTS_DATA);
+else fetch("products.json?v=" + Date.now()).then(r => r.json()).then(start)
+  .catch(() => { document.getElementById("grid").innerHTML = '<div class="empty">読み込みに失敗しました。時間をおいて再度お試しください。</div>'; });
+</script>
+</body>
+</html>
