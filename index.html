@@ -34,6 +34,7 @@
   @media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
   @media(min-width:900px){.grid{grid-template-columns:1fr 1fr 1fr}}
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px}
+  .art{display:flex;align-items:center;justify-content:center;height:120px;border-radius:10px;margin:-2px -2px 2px}
   .tags{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
   .cat{font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:6px;padding:2px 8px}
   .new{font-size:11px;font-weight:700;color:#fff;background:var(--gold);border-radius:6px;padding:2px 6px}
@@ -81,6 +82,22 @@ const TAG = "rungenic-22";
 let DATA = {categories: [], products: []};
 let state = {cat: "すべて", q: "", sort: "new"};
 
+const S = 'fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"';
+const ICONS = {
+  "シューズ": {bg:"#fde8dc", fg:"#c8501e", svg:`<path ${S} d="M6 40c0-6 2-12 4-16l8 3c4 2 8 2 11 0l3-3 6 8c5 6 12 7 20 8 3 1 4 3 4 6v2H10c-2 0-4-2-4-4v-4z"/><path ${S} d="M6 46h52M20 30l3 5M26 31l3 5M32 30l3 5"/>`},
+  "GPSウォッチ": {bg:"#e1ecf7", fg:"#2d6aa3", svg:`<rect ${S} x="18" y="18" width="28" height="28" rx="8"/><path ${S} d="M24 18l2-10h12l2 10M24 46l2 10h12l2-10M32 26v7l5 3M48 30h2"/>`},
+  "イヤホン": {bg:"#e9e4f5", fg:"#5b47a0", svg:`<path ${S} d="M14 40c0-14 8-26 18-26s18 12 18 26"/><rect ${S} x="8" y="36" width="10" height="16" rx="5"/><rect ${S} x="46" y="36" width="10" height="16" rx="5"/>`},
+  "ポーチ・ベスト": {bg:"#e3f1e6", fg:"#2f7a45", svg:`<path ${S} d="M4 30h56M4 36h56"/><rect ${S} x="18" y="24" width="28" height="20" rx="6"/><path ${S} d="M22 32h20"/><circle cx="40" cy="38" r="1.5" fill="currentColor"/>`},
+  "ウェア・小物": {bg:"#f5ecd9", fg:"#9a6b14", svg:`<path ${S} d="M12 38c0-12 9-20 20-20s20 8 20 20H12z"/><path ${S} d="M12 38h-2c-3 0-4 4-1 5 9 3 30 3 43-5M32 18v-3"/>`},
+  "補給食": {bg:"#fbe3e3", fg:"#b03a3a", svg:`<path ${S} d="M22 10h20l-2 6v34c0 3-2 5-5 5h-6c-3 0-5-2-5-5V16z"/><path ${S} d="M24 16h16M26 30h12M26 36h8"/>`},
+  "ケア用品": {bg:"#dff1f1", fg:"#23777a", svg:`<ellipse ${S} cx="16" cy="32" rx="6" ry="14"/><path ${S} d="M16 18h32c3 0 6 6 6 14s-3 14-6 14H16"/><path ${S} d="M28 20v24M38 20v24"/>`}
+};
+const DEFAULT_ICON = {bg:"#eeeae2", fg:"#6b6862", svg:`<circle ${S} cx="32" cy="32" r="16"/><path ${S} d="M32 24v8l6 4"/>`};
+function art(cat){
+  const i = ICONS[cat] || DEFAULT_ICON;
+  return `<div class="art" style="background:${i.bg};color:${i.fg}"><svg viewBox="0 0 64 64" width="88" height="88" aria-hidden="true">${i.svg}</svg></div>`;
+}
+
 function link(p){
   if (p.asin) return "https://www.amazon.co.jp/dp/" + encodeURIComponent(p.asin) + "?tag=" + TAG;
   return "https://www.amazon.co.jp/s?k=" + encodeURIComponent(p.query || p.name) + "&tag=" + TAG;
@@ -111,6 +128,7 @@ function render(){
   if (!list.length){ grid.innerHTML = `<div class="empty">該当する商品がありません</div>`; return; }
   grid.innerHTML = list.map(p => `
     <article class="card">
+      ${art(p.category)}
       <div class="tags">
         <span class="cat">${esc(p.category)}</span>
         ${isNew(p.added) ? '<span class="new">NEW</span>' : ''}
