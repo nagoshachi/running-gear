@@ -35,6 +35,8 @@
   @media(min-width:900px){.grid{grid-template-columns:1fr 1fr 1fr}}
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px}
   .art{display:flex;align-items:center;justify-content:center;height:120px;border-radius:10px;margin:-2px -2px 2px}
+  .photo{display:flex;align-items:center;justify-content:center;height:180px;background:#fff;border-radius:10px;margin:-2px -2px 2px}
+  .photo img{max-width:100%;max-height:170px;object-fit:contain}
   .tags{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
   .cat{font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:6px;padding:2px 8px}
   .new{font-size:11px;font-weight:700;color:#fff;background:var(--gold);border-radius:6px;padding:2px 6px}
@@ -99,6 +101,7 @@ function art(cat){
 }
 
 function link(p){
+  if (p.url) return p.url;
   if (p.asin) return "https://www.amazon.co.jp/dp/" + encodeURIComponent(p.asin) + "?tag=" + TAG;
   return "https://www.amazon.co.jp/s?k=" + encodeURIComponent(p.query || p.name) + "&tag=" + TAG;
 }
@@ -128,7 +131,7 @@ function render(){
   if (!list.length){ grid.innerHTML = `<div class="empty">該当する商品がありません</div>`; return; }
   grid.innerHTML = list.map(p => `
     <article class="card">
-      ${art(p.category)}
+      ${p.image ? `<a class="photo" href="${esc(link(p))}" target="_blank" rel="noopener sponsored"><img src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy"></a>` : art(p.category)}
       <div class="tags">
         <span class="cat">${esc(p.category)}</span>
         ${isNew(p.added) ? '<span class="new">NEW</span>' : ''}
@@ -136,7 +139,7 @@ function render(){
       </div>
       <h2 class="name">${esc(p.name)}</h2>
       <p class="comment">${esc(p.comment)}</p>
-      <a class="btn" href="${link(p)}" target="_blank" rel="noopener sponsored">Amazonで見る</a>
+      <a class="btn" href="${esc(link(p))}" target="_blank" rel="noopener sponsored">Amazonで見る</a>
     </article>`).join("");
 }
 
